@@ -4,8 +4,10 @@
 % Written by Hugh Fitzpatrick, S.N. 22341351 for the completion of MS1. 
 
 function x = GaussianElimination(A, b)
-   Ra = size(A); 
-   n = Ra(1); % Number of rows (and columns) of A assuming A is square
+
+   %% Initial definitions
+   Ra = size(A); %% Find size of matrix A
+   n = Ra(1); % Number of rows (and columns) of A, assuming A is square
    Id = eye(n); % n x n identity matrix
    Q_tot = Id; % Accumulates the permutation matrix during iteration
 
@@ -29,8 +31,8 @@ function x = GaussianElimination(A, b)
        % Store row and col number of the pivot point
        row_num = Ir(Ic1); 
        col_num = Ic1;
-       %% Swap matrix so pivot point is primary element
 
+       %% Swap matrix so pivot point is primary element
        % Swap mth row with row containing the pivot 
        p = [1:n];
        p(m) = m-1+row_num;
@@ -60,15 +62,14 @@ function x = GaussianElimination(A, b)
        if A1(m,m) ~= 0
         L1 = Id - ([zeros(m,1); A1(m+1:n,m)]*I_vec)/A1(m,m);
        else
-           disp("ERROR Pivot is equal to 0")
-           return;
+           error("ERROR Pivot is equal to 0")
        end 
 
        % Perform elimination 
        A1 = L1*A1;
        b1 = L1*b1;
    end
-   
+
    %% Back substitution 
 
    % Solution vector 
@@ -79,7 +80,7 @@ function x = GaussianElimination(A, b)
        if A1(n-m,n-m) ~= 0
             x(n-m,1) = (b1(n-m,1) - (A1(n-m,:)*x))/A1(n-m,n-m);
        else 
-           print("ERR: Diagonal element is equal to 0. A1 is not an upper triangular matrix.")
+           error("ERR: Diagonal element is equal to 0. A1 is not an upper triangular matrix.")
        end
        
    end
