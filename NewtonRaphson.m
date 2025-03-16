@@ -20,7 +20,7 @@ function [x, iterations] = NewtonRaphson(f, J, x0, tol, maxIter)
         error("ERR: Tolerance is too large. Consider range of 1e-9.")
     end
 
-    if maxIter > 45
+    if maxIter > 20
         error("ERR: Maximum iterations should not exceed 20.")
     elseif maxIter < 0
         error("ERR: Maximum iterations should be a positive integer.")
